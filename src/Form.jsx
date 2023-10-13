@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import './App.css';
+import usePersist from './Persist'
 
 function AlertMessage(props) {
-  const data = props.data;
-  const msg = JSON.stringify(data);
+  // const data = props.data;
+  // const msg = JSON.stringify(data);
 
-  return <div className="alert alert-primary h5 text-primary">
-    <h5>{msg}</h5>
-    <hr />
-    <table className="table h6">
-      <tr><th>Name</th><td>{data.name}</td></tr>
-      <tr><th>Mail</th><td>{data.mail}</td></tr>
-      <tr><th>Age</th><td>{data.age}</td></tr>
-    </table>
-  </div>
-}
-
-function Form() {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [age, setAge] = useState("");
-  const [form, setForm] = useState({
-    name:'no name', mail:'no mail', age:0
-  });
+  // const [form, setForm] = useState({
+  //   name:'no name', mail:'no mail', age:0
+  // });
+  const [myData, setMyData] = usePersist("mydata", null);
 
   const doChangeName = (event) => {
     setName(event.target.value);
@@ -33,18 +23,26 @@ function Form() {
   const doChangeAge = (event) => {
     setAge(event.target.value);
   }
-  const doSubmitForm = (event) => {
-    setForm({name:name, mail:mail, age:age})
-    event.preventDefault();
+  // const doSubmitForm = (event) => {
+  //   setForm({name:name, mail:mail, age:age})
+  //   event.preventDefault();
+  // }
+  const onAction = (e) => {
+    const data = {
+      name: name,
+      mail: mail,
+      age: age,
+    }
+    setMyData(data);
   }
 
   return(
     <div>
-      <h1 className="bg-primary text-white display-4">React</h1>
+      {/* <h1 className="bg-primary text-white display-4">React</h1> */}
       <div className="container">
-        <h4 className="my-3">Hooks sample</h4>
-        <AlertMessage data={form} setData={setForm}/>
-        <form onSubmit={doSubmitForm}>
+        <h4 className="my-3">{JSON.stringify(myData)}</h4>
+        {/* <AlertMessage data={form} setData={setForm}/> */}
+        {/* <form onSubmit={doSubmitForm}> */}
           <div className="form-group">
             <label>Name:</label>
             {/* onChangeによってinputのvalueを更新している */}
@@ -58,8 +56,23 @@ function Form() {
             <label>Age:</label>
             <input type="text" className="form-control" onChange={doChangeAge} />
           </div>
-          <input type="submit" className="btn btn-primary" value="Click!" />
-        </form>
+          <button onClick={onAction} className="btn btn-primary">
+            save it!
+          </button>
+          {/* <input type="submit" className="btn btn-primary" value="Click!" />
+        </form> */}
+      </div>
+    </div>
+  )
+}
+
+function Form() {
+  return(
+    <div>
+      <h1 className="bg-primary text-white display-4">React</h1>
+      <div className="container">
+        <h4 className="my-3">Hooks sample</h4>
+        <AlertMessage />
       </div>
     </div>
   )

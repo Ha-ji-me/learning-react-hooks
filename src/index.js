@@ -14,8 +14,8 @@ root.render(
     {/* <App /> */}
     {/* <Hooks /> */}
     {/* <Card /> */}
-    {/* <Form /> */}
-    <Effect />
+    <Form />
+    {/* <Effect /> */}
   </React.StrictMode>
 );
 
