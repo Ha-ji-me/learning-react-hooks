@@ -8,20 +8,46 @@ function AlertMessage(props) {
 }
 
 function Effect() {
-  const [value, setValue] = useState(0);
-  const [msg, setMsg] = useState('set a number...');
+  const [value, setValue] = useState(1000);
+  const [tax1, setTax1] = useState(0);
+  const [tax2, setTax2] = useState(0);
+  const [msg, setMsg] = useState(<p>set a price...</p>);
 
   const doChange = (event) => {
     setValue(event.target.value);
   }
 
+  // const doAction = (event) => {
+  //   let res = <div>
+  //     <p>軽減税率(8%) : {tax1} 円</p>
+  //     <p>軽減税率(10%) : {tax2} 円</p>
+  //   </div>
+  //   setMsg(res);
+  // }
+
   useEffect(() => {
-    let total = 0;
-    for (let i = 0; i<= value; i++) {
-      total += i;
-    }
-    setMsg("total: " + total + ".");
+    let res = <div>
+      <p>軽減税率(8%) : {tax1} 円</p>
+      <p>軽減税率(10%) : {tax2} 円</p>
+    </div>
+    setMsg(res)
+  }, [tax1, tax2])
+
+  useEffect(() => {
+    setTax1(Math.floor(value * 1.08));
   })
+
+  useEffect(() => {
+    setTax2(Math.floor(value * 1.1));
+  })
+
+  // useEffect(() => {
+  //   let total = 0;
+  //   for (let i = 0; i<= value; i++) {
+  //     total += i;
+  //   }
+  //   setMsg("total: " + total + ".");
+  // })
 
   return (
     <div>
@@ -33,6 +59,7 @@ function Effect() {
           <label>input:</label>
           <input type="number" className="form-control" onChange={doChange} />
         </div>
+          {/* <button className="btn btn-primary" onClick={doAction}>Calc!</button> */}
       </div>
     </div>
   )
