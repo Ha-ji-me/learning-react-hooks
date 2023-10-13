@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 
+function useCounter() {
+  const [num, setNum] = useState(0);
+  const count = () => {
+    setNum(num + 1);
+  }
+  return [num, count];
+}
+
 function AlertMessage(props) {
+  const [counter, plus] = useCounter();
+
   return <div className="alert alert-primary h5 text-primary">
+    <h4>count: {counter}</h4>
+    <button className="btn btn-primary" onClick={plus}>click</button>
     <h5>{props.msg}</h5>
   </div>
 }
