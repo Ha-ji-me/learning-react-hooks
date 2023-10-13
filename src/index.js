@@ -5,6 +5,7 @@ import App from './App';
 import Hooks from './Hooks';
 import Card from './Card';
 import Form from './Form';
+import Effect from './Effect';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,8 @@ root.render(
     {/* <App /> */}
     {/* <Hooks /> */}
     {/* <Card /> */}
-    <Form />
+    {/* <Form /> */}
+    <Effect />
   </React.StrictMode>
 );
 
